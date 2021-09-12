@@ -107,13 +107,16 @@ export class LspServer {
 
         const userInitializationOptions: TypeScriptInitializationOptions = this.initializeParams.initializationOptions || {};
         const { hostInfo, maxTsServerMemory } = userInitializationOptions;
-        const { logVerbosity, plugins, preferences }: TypeScriptInitializationOptions = {
+        const { logVerbosity, plugins, preferences, formatOptions }: TypeScriptInitializationOptions = {
             logVerbosity: userInitializationOptions.logVerbosity || this.options.tsserverLogVerbosity,
             plugins: userInitializationOptions.plugins || [],
             preferences: {
                 includeCompletionsForModuleExports: true,
                 includeCompletionsWithInsertText: true,
                 ...userInitializationOptions.preferences
+            },
+            formatOptions: {
+                ...userInitializationOptions.formatOptions
             }
         };
 
@@ -143,6 +146,9 @@ export class LspServer {
             preferences: {
                 allowTextChangesInNewFiles: true,
                 ...preferences
+            },
+            formatOptions: {
+                ...formatOptions
             }
         });
 
